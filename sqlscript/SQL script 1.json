@@ -1,0 +1,17 @@
+{
+	"name": "SQL script 1",
+	"properties": {
+		"content": {
+			"query": "-- This is auto-generated code\nSELECT\n    TOP 10 VendorID, sum(tip_amount) as totaltip\nFROM\n    OPENROWSET(\n        BULK 'https://azstoragemk01.dfs.core.windows.net/mynewsynapsedata/raw/yellow_tripdata_2021-01.csv',\n        FORMAT = 'CSV',\n        PARSER_VERSION = '2.0',\n        HEADER_ROW = TRUE\n    ) AS [result]\ngroup by VendorID ;",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "mysqlpookmk",
+				"poolName": "mysqlpookmk"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

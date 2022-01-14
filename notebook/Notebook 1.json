@@ -1,0 +1,134 @@
+{
+	"name": "Notebook 1",
+	"properties": {
+		"nbformat": 4,
+		"nbformat_minor": 2,
+		"bigDataPool": {
+			"referenceName": "mysparkspool",
+			"type": "BigDataPoolReference"
+		},
+		"sessionProperties": {
+			"driverMemory": "56g",
+			"driverCores": 8,
+			"executorMemory": "56g",
+			"executorCores": 8,
+			"numExecutors": 2,
+			"conf": {
+				"spark.dynamicAllocation.enabled": "false",
+				"spark.dynamicAllocation.minExecutors": "2",
+				"spark.dynamicAllocation.maxExecutors": "2",
+				"spark.autotune.trackingId": "896c71e2-83ac-401c-bedb-10fb3331b84b"
+			}
+		},
+		"metadata": {
+			"saveOutput": true,
+			"synapse_widget": {
+				"version": "0.1"
+			},
+			"enableDebugMode": false,
+			"kernelspec": {
+				"name": "synapse_pyspark",
+				"display_name": "Synapse PySpark"
+			},
+			"language_info": {
+				"name": "python"
+			},
+			"a365ComputeOptions": {
+				"id": "/subscriptions/1477f55d-cbaf-40dd-b824-c8e1f3e173ac/resourceGroups/MyFirstADLakeLearning-rg/providers/Microsoft.Synapse/workspaces/mkhan-synapse/bigDataPools/mysparkspool",
+				"name": "mysparkspool",
+				"type": "Spark",
+				"endpoint": "https://mkhan-synapse.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/mysparkspool",
+				"auth": {
+					"type": "AAD",
+					"authResource": "https://dev.azuresynapse.net"
+				},
+				"sparkVersion": "3.1",
+				"nodeCount": 10,
+				"cores": 8,
+				"memory": 56,
+				"extraHeader": null
+			}
+		},
+		"cells": [
+			{
+				"cell_type": "code",
+				"metadata": {
+					"microsoft": {
+						"language": "python"
+					},
+					"collapsed": false
+				},
+				"source": [
+					"%%pyspark\n",
+					"blob_account_name = \"azstoragemk01\"\n",
+					"blob_container_name = \"mynewsynapsedata\"\n",
+					"from pyspark.sql import SparkSession\n",
+					"\n",
+					"sc = SparkSession.builder.getOrCreate()\n",
+					"token_library = sc._jvm.com.microsoft.azure.synapse.tokenlibrary.TokenLibrary\n",
+					"blob_sas_token = token_library.getConnectionString(\"LNK_SYNPAPSEGENLK\")\n",
+					"\n",
+					"spark.conf.set(\n",
+					"    'fs.azure.sas.%s.%s.blob.core.windows.net' % (blob_container_name, blob_account_name),\n",
+					"    blob_sas_token)\n",
+					"df = spark.read.load('wasbs://mynewsynapsedata@azstoragemk01.blob.core.windows.net/raw/userdata1.parquet', format='parquet')\n",
+					"##df.write.mode(\"overwrite\").saveAsTable(\"default.mysparktablefordata\")\n",
+					"##df.printSchema\n",
+					"spark.sql(\"create DATABASE if not exists mysparkdatabase\")\n",
+					"df.write.mode(\"overwrite\").saveAsTable(\"mydata\")\n",
+					"\n",
+					"spark.sql(\"select * from mydata\").limit(10)\n",
+					""
+				],
+				"attachments": null,
+				"execution_count": null
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"collapsed": false
+				},
+				"source": [
+					"df1 = spark.sql(\"select * from mydata\").limit(10)\r\n",
+					"display(df1)\r\n",
+					" \r\n",
+					"\r\n",
+					"\r\n",
+					""
+				],
+				"attachments": null,
+				"execution_count": null
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"collapsed": false
+				},
+				"source": [
+					"df2 = spark.sql(\"select first_name,last_name from mydata\")\r\n",
+					"df2.write.saveAsTable(\"mysparkdatabase.newtableforme\")"
+				],
+				"attachments": null,
+				"execution_count": 25
+			}
+		]
+	}
+}

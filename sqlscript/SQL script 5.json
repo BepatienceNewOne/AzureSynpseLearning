@@ -1,0 +1,17 @@
+{
+	"name": "SQL script 5",
+	"properties": {
+		"content": {
+			"query": "-- This is auto-generated code\nSELECT\n    count(*)\nFROM\n    OPENROWSET(\n        BULK 'https://azstoragemk01.blob.core.windows.net/landing/lake/data/csv/newtableforme.parquet/part-00000-9bf55bef-5109-4f86-ba73-5953c4f9c641-c000.snappy.parquet',\n        FORMAT = 'PARQUET'\n    ) AS [result]\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "master",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

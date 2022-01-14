@@ -1,0 +1,17 @@
+{
+	"name": "SQL script 4",
+	"properties": {
+		"content": {
+			"query": "select first_name,sum(salary) as totalsalary \nfrom dbo.mynewdatanew\ngroup by first_name",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "mysqlpookmk",
+				"poolName": "mysqlpookmk"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

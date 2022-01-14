@@ -1,0 +1,74 @@
+{
+	"name": "Notebook 2",
+	"properties": {
+		"nbformat": 4,
+		"nbformat_minor": 2,
+		"bigDataPool": {
+			"referenceName": "mysparkspool",
+			"type": "BigDataPoolReference"
+		},
+		"sessionProperties": {
+			"driverMemory": "56g",
+			"driverCores": 8,
+			"executorMemory": "56g",
+			"executorCores": 8,
+			"numExecutors": 2,
+			"conf": {
+				"spark.dynamicAllocation.enabled": "false",
+				"spark.dynamicAllocation.minExecutors": "2",
+				"spark.dynamicAllocation.maxExecutors": "2",
+				"spark.autotune.trackingId": "570f2b46-bb82-466c-8b1c-8b4074c1a76e"
+			}
+		},
+		"metadata": {
+			"saveOutput": true,
+			"synapse_widget": {
+				"version": "0.1"
+			},
+			"enableDebugMode": false,
+			"kernelspec": {
+				"name": "synapse_pyspark",
+				"display_name": "Synapse PySpark"
+			},
+			"language_info": {
+				"name": "python"
+			},
+			"a365ComputeOptions": {
+				"id": "/subscriptions/1477f55d-cbaf-40dd-b824-c8e1f3e173ac/resourceGroups/MyFirstADLakeLearning-rg/providers/Microsoft.Synapse/workspaces/mkhan-synapse/bigDataPools/mysparkspool",
+				"name": "mysparkspool",
+				"type": "Spark",
+				"endpoint": "https://mkhan-synapse.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/mysparkspool",
+				"auth": {
+					"type": "AAD",
+					"authResource": "https://dev.azuresynapse.net"
+				},
+				"sparkVersion": "3.1",
+				"nodeCount": 10,
+				"cores": 8,
+				"memory": 56,
+				"extraHeader": null
+			}
+		},
+		"cells": [
+			{
+				"cell_type": "code",
+				"metadata": {
+					"collapsed": false
+				},
+				"source": [
+					"\r\n",
+					"df = spark.sql(\"select * from mysparkdatabase.newtableforme\")\r\n",
+					"##display(df)\r\n",
+					"\r\n",
+					"df.write.mode(\"overwrite\").parquet(\"/lake/data/csv/newtableforme.parquet\")\r\n",
+					"\r\n",
+					"\r\n",
+					"\r\n",
+					""
+				],
+				"attachments": null,
+				"execution_count": 10
+			}
+		]
+	}
+}
