@@ -17,14 +17,11 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "570f2b46-bb82-466c-8b1c-8b4074c1a76e"
+				"spark.autotune.trackingId": "7bd0184f-a47e-4f58-8b15-27cd5e0a305d"
 			}
 		},
 		"metadata": {
 			"saveOutput": true,
-			"synapse_widget": {
-				"version": "0.1"
-			},
 			"enableDebugMode": false,
 			"kernelspec": {
 				"name": "synapse_pyspark",
@@ -46,8 +43,9 @@
 				"nodeCount": 10,
 				"cores": 8,
 				"memory": 56,
-				"extraHeader": null
-			}
+				"automaticScaleJobs": false
+			},
+			"sessionKeepAliveTimeout": 30
 		},
 		"cells": [
 			{
@@ -66,8 +64,7 @@
 					"\r\n",
 					""
 				],
-				"attachments": null,
-				"execution_count": 10
+				"execution_count": 1
 			}
 		]
 	}
