@@ -1,0 +1,2 @@
+# AzureSynpseLearning
+Azure Synapse Learning 
